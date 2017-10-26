@@ -33,10 +33,13 @@ import android.test.ActivityInstrumentationTestCase2;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.doubleClick;
+import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.equalTo;
@@ -116,6 +119,30 @@ public class LongListActivityTest {
     public void toggle_Click() {
         // Click on a toggle button.
         onRow(TEXT_ITEM_30).onChildView(withId(R.id.rowToggleButton)).perform(click());
+
+        // Check that the toggle button is checked.
+        onRow(TEXT_ITEM_30).onChildView(withId(R.id.rowToggleButton)).check(matches(isChecked()));
+    }
+
+    /**
+     * Checks that a toggle button is NOT checked after double clicking on it.
+     */
+    @Test
+    public void no_Toggle_On_doubleClick() {
+        // Click on a toggle button.
+        onRow(TEXT_ITEM_30).onChildView(withId(R.id.rowToggleButton)).perform(doubleClick());
+
+        // Check that the toggle button is NOT checked.
+        onRow(TEXT_ITEM_30).onChildView(withId(R.id.rowToggleButton)).check(matches(isNotChecked()));
+    }
+
+    /**
+     * Checks that a toggle button is checked after long clicking on it.
+     */
+    @Test
+    public void toggle_LongClick() {
+        // Click on a toggle button.
+        onRow(TEXT_ITEM_30).onChildView(withId(R.id.rowToggleButton)).perform(longClick());
 
         // Check that the toggle button is checked.
         onRow(TEXT_ITEM_30).onChildView(withId(R.id.rowToggleButton)).check(matches(isChecked()));
